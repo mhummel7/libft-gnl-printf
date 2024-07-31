@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 14:30:40 by mhummel           #+#    #+#             */
-/*   Updated: 2024/07/31 14:30:51 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/07/31 14:35:40 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	ft_print_error(void)
 {
-	ft_putstr_fd("Error\n", 2);
+	ft_printf("Error\n");
 	return (1);
 }
