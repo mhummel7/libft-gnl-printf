@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:13:00 by mhummel           #+#    #+#             */
-/*   Updated: 2024/07/31 14:32:35 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/30 09:16:31 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdarg.h>
+# include <stdbool.h>
+# include <errno.h>
 
 int		ft_atoi(const char *str);
 long	ft_atol(const char *str);
@@ -57,5 +59,30 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	**ft_split(char const *s, char c);
 size_t	ft_strcpy(char *dst, const char *src);
 void	ft_strncpy(char *dst, const char *src, size_t len);
+char	*ft_strtok(char *str, const char *delim);
+int		ft_strcmp(const char *s1, const char *s2);
+bool	ft_isspace(int c);
+char	*ft_strndup(const char *s, size_t n);
+char	*ft_strtok_r(char *str, const char *delim, char **saveptr);
+size_t	ft_strspn(const char *str, const char *accept);
+size_t	ft_strcspn(const char *str, const char *reject);
+char	*ft_strjoin3(const char *s1, const char *s2, const char *s3);
+char	*ft_strerror(int errnum);
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
+t_list	*ft_lstnew(void *content);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+int		ft_lstsize(t_list *lst);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

@@ -6,18 +6,17 @@
 #    By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/13 11:03:31 by mhummel           #+#    #+#              #
-#    Updated: 2024/07/31 14:32:12 by mhummel          ###   ########.fr        #
+#    Updated: 2024/10/30 09:20:30 by mhummel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft/libft.a
+NAME = libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-AR = ar
+OBJ_DIR = Obj_libft
+OFILES	= $(addprefix $(OBJ_DIR)/,$(notdir $(FILES:.c=.o)))
 
-# Libft files
-LIBFT_DIR = libft/
-LIBFT_FILES =	ft_atoi.c \
+FILES =		ft_atoi.c \
 			ft_atol.c \
 			ft_bzero.c \
 			ft_calloc.c \
@@ -52,13 +51,33 @@ LIBFT_FILES =	ft_atoi.c \
 			ft_print_error.c \
 			ft_strmapi.c \
 			ft_striteri.c \
+			ft_lstnew_bonus.c \
+			ft_lstadd_front_bonus.c \
+			ft_lstsize_bonus.c \
+			ft_lstlast_bonus.c \
+			ft_lstadd_back_bonus.c \
+			ft_lstdelone_bonus.c \
+			ft_lstclear_bonus.c \
+			ft_lstiter_bonus.c \
+			ft_lstmap_bonus.c \
 			ft_split.c \
 			ft_strcpy.c \
-			ft_strncpy.c
-
-# ft_printf files
-FT_PRINTF_DIR = ft_printf/
-FT_PRINTF_FILES =	ft_printf.c \
+			ft_strncpy.c \
+			ft_strcmp.c \
+			ft_strtok.c \
+			ft_isspace.c \
+			ft_strndup.c \
+			ft_strtok_r.c \
+			ft_strspn.c \
+			ft_strcspn.c \
+			ft_strjoin3.c \
+			ft_strerror.c \
+			ft_err.c \
+			ft_strtrim.c \
+			ft_realloc.c \
+			get_next_line.c \
+			get_next_line_utils.c \
+			ft_printf.c \
 			ft_putchar_fd_printf.c \
 			ft_putstr_fd_printf.c \
 			ft_putnbr_fd_printf.c \
@@ -68,35 +87,25 @@ FT_PRINTF_FILES =	ft_printf.c \
 			ft_strlen_printf.c \
 			ft_error_printf.c
 
-# get_next_line files
-GNL_DIR = get_next_line/
-GNL_FILES =	get_next_line.c \
-			get_next_line_utils.c
+$(NAME): $(OBJ_DIR) $(OFILES)
+	@ar rsc $(NAME) $(OFILES)
 
-SRCS =	$(addprefix $(LIBFT_DIR), $(LIBFT_FILES)) \
-		$(addprefix $(FT_PRINTF_DIR), $(FT_PRINTF_FILES)) \
-		$(addprefix $(GNL_DIR), $(GNL_FILES))
+$(OBJ_DIR)/%.o: %.c
+	@$(CC) -c $(CFLAGS) $< -o $@
 
-OBJS= $(SRCS:.c=.o)
+$(OBJ_DIR):
+	@echo "\033[35mCompiling $(NAME)\033[0m"
+	@mkdir -p $(OBJ_DIR)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@$(AR) -r $@ $?
-
-%.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR) -I$(GNL_DIR)
-	@echo "\033[32m" Compiled "$<" "\033[0m"
-
 clean:
-	@rm -f $(OBJS)
-	@echo "\033[38;5;214m" Cleaned libft"\033[0m"
+	@rm -rf $(OBJ_DIR)
+	@rm -f $(OFILES)
 
-fclean:
-	@rm -f $(OBJS)
+fclean: clean
 	@rm -f $(NAME)
-	@echo "\033[38;5;214m" Fcleaned $(NAME) "\033[0m"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all, clean, fclean, re
